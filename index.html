@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday — Nawa Aulia Putri</title>
+<style>
+:root{--bg:#eee2ff;--bg2:#d8bdf7;--purple:#8c5bd3;--deep:#5d3297;--white:#fffaff;--text:#39234f}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);overflow-x:hidden}
+body{background:radial-gradient(circle at 10% 10%,#fff 0,transparent 25%),radial-gradient(circle at 90% 80%,#fff8 0,transparent 25%),linear-gradient(135deg,var(--bg),#faf4ff,var(--bg2))}
+button{font:inherit;border:0;cursor:pointer}
+#app{min-height:100vh;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:57% 43% 62% 38% / 45% 58% 42% 55%;opacity:.35;animation:morph 10s ease-in-out infinite alternate;pointer-events:none}
+.blob.one{width:240px;height:220px;background:#c6a1f5;left:-80px;top:10%}
+.blob.two{width:280px;height:200px;background:#f0b9df;right:-100px;bottom:10%;animation-delay:-4s}
+@keyframes morph{0%{transform:rotate(0) scale(1)}50%{transform:rotate(12deg) scale(1.08)}100%{transform:rotate(-9deg) scale(.94)}}
+
+.balloons{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.balloon{position:absolute;bottom:-130px;width:45px;height:58px;border-radius:50%;background:linear-gradient(145deg,#c49af0,#8752ca);animation:balloonUp linear infinite;opacity:.7}
+.balloon:after{content:"";position:absolute;width:1px;height:100px;background:#8e70a7;top:57px;left:50%}
+.balloon:before{content:"";position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid #8752ca}
+.balloon:nth-child(1){left:7%;animation-duration:13s}.balloon:nth-child(2){left:23%;width:35px;height:48px;animation-duration:17s;animation-delay:-5s}.balloon:nth-child(3){left:43%;animation-duration:15s;animation-delay:-9s}.balloon:nth-child(4){left:67%;width:38px;height:50px;animation-duration:18s;animation-delay:-3s}.balloon:nth-child(5){left:88%;animation-duration:14s;animation-delay:-8s}
+@keyframes balloonUp{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-60vh) translateX(25px) rotate(6deg)}100%{transform:translateY(-125vh) translateX(-20px) rotate(-5deg)}}
+
+.sparkle{position:fixed;width:6px;height:6px;border-radius:50%;background:white;pointer-events:none;z-index:50;box-shadow:0 0 8px white,0 0 15px #cda6ff;animation:sparkleOut .8s ease-out forwards}
+@keyframes sparkleOut{to{opacity:0;transform:translateY(-20px) scale(0)}}
+
+.screen{min-height:100vh;width:100%;display:none;place-items:center;position:relative;padding:35px 18px;z-index:2}
+.screen.active{display:grid;animation:screenIn .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes screenIn{from{opacity:0;transform:scale(.97) translateY(20px)}to{opacity:1;transform:none}}
+.card{width:min(94vw,700px);background:#fffaffd9;border:1px solid #ffffffaa;box-shadow:0 25px 70px #60339c2b;backdrop-filter:blur(18px);border-radius:38px;padding:30px;text-align:center;position:relative;z-index:3}
+.small{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;opacity:.6}
+h1{font-size:clamp(2.1rem,8vw,4.2rem);line-height:.98;margin:12px 0;color:var(--deep)}
+h2{font-size:clamp(1.6rem,5vw,2.5rem);color:var(--deep)}
+p{line-height:1.7}
+.primary{padding:13px 25px;border-radius:999px;color:white;background:linear-gradient(135deg,var(--purple),#aa70e7);box-shadow:0 12px 30px #7142a844;font-weight:700;transition:.3s}
+.primary:hover{transform:translateY(-3px) scale(1.02)}.primary:active{transform:scale(.96)}
+
+.progress{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:7px}
+.dot{width:8px;height:8px;background:#cdb4ea;border-radius:50%;transition:.3s}.dot.on{width:27px;border-radius:10px;background:var(--purple)}
+.music{position:fixed;right:16px;top:13px;z-index:100;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--deep);box-shadow:0 8px 25px #60339c33;display:none}
+
+.typewriter{min-height:55px;font-size:1rem}.cursor{display:inline-block;width:2px;height:1.1em;background:var(--deep);margin-left:3px;animation:blink .7s infinite;vertical-align:middle}
+@keyframes blink{50%{opacity:0}}
+
+.envelope-wrap{width:min(82vw,420px);aspect-ratio:1.25;perspective:900px;margin:20px auto;position:relative}
+.envelope{position:absolute;inset:0;background:linear-gradient(145deg,#c9a4f3,#9b67d4);border-radius:15px 15px 25px 25px;box-shadow:0 25px 50px #60339c33;cursor:pointer}
+.envelope:before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);background:linear-gradient(135deg,#b88be9,#8f5dcb);border-radius:15px 15px 25px 25px}
+.flap{position:absolute;z-index:4;width:100%;height:63%;background:#d9bdf8;clip-path:polygon(0 0,100% 0,50% 80%);transform-origin:top;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.letter{position:absolute;z-index:2;width:78%;height:82%;left:11%;top:8%;background:#fffdfb;border-radius:10px;padding:18px;color:#624078;box-shadow:0 8px 22px #56308b1c;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.envelope.open .flap{transform:rotateX(180deg)}.envelope.open .letter{transform:translateY(-34%)}
+
+.secret-star{display:inline-grid;place-items:center;width:50px;height:50px;margin:15px;border-radius:50%;background:#ead8ff;cursor:pointer;font-size:1.6rem;transition:.3s}
+.secret-star:hover{transform:rotate(15deg) scale(1.1)}
+.secret-message{display:none;background:#f5eaff;padding:15px;border-radius:20px;animation:pop .5s ease}.secret-message.show{display:block}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+.calendar{width:min(92vw,470px);background:white;border-radius:30px;padding:20px;margin:20px auto;box-shadow:0 20px 55px #6336a62b}
+.cal-head{display:flex;justify-content:space-between;padding-bottom:15px}.cal-head strong{color:var(--deep);font-size:1.3rem}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.week{font-size:.7rem;opacity:.5;padding:5px}.day{aspect-ratio:1;display:grid;place-items:center;border-radius:50%;font-weight:600}
+.day.mark{background:var(--purple);color:white;box-shadow:0 0 0 7px #b98bea35;animation:pulse 2s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}.date-note{color:var(--deep);font-weight:700;margin-top:15px}
+
+.countdown{position:fixed;inset:0;background:#8c5bd3ee;z-index:200;display:none;place-items:center;color:white;backdrop-filter:blur(10px)}
+.countdown.show{display:grid}.count-number{font-size:clamp(7rem,30vw,15rem);font-weight:900;animation:countPop .9s cubic-bezier(.2,1.5,.4,1);text-shadow:0 15px 35px #3c1e6544}
+@keyframes countPop{from{transform:scale(.2) rotate(-10deg);opacity:0}70%{transform:scale(1.15)}to{transform:scale(1);opacity:1}}
+
+.gift{width:150px;height:125px;position:relative;margin:30px auto;cursor:pointer;transition:.4s}.gift:hover{transform:translateY(-7px) rotate(-2deg)}
+.gift-body{position:absolute;bottom:0;width:100%;height:83%;background:linear-gradient(135deg,#a66bdb,#c88df0);border-radius:9px 9px 18px 18px}
+.gift-lid{position:absolute;top:4%;left:-7%;width:114%;height:27%;background:#d5a7f5;border-radius:10px;z-index:2}
+.ribbon-v{position:absolute;left:43%;width:14%;height:100%;background:#f5b8df;z-index:3}
+.ribbon-h{position:absolute;top:45%;height:15%;width:100%;background:#f5b8df;z-index:3}
+.bow{position:absolute;top:-12%;left:50%;transform:translateX(-50%);z-index:4;font-size:2.3rem}
+.gift.open{animation:giftOpen .8s both}.gift.open .gift-lid{animation:lidOpen .8s both}
+@keyframes giftOpen{50%{transform:scale(1.08)}100%{transform:scale(.9);opacity:.2}}
+@keyframes lidOpen{to{transform:translateY(-80px) rotate(-12deg);opacity:0}}
+
+.photo-wrap{width:min(92vw,560px);aspect-ratio:16/10;perspective:1200px;margin:24px auto;display:none}
+.flip-card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+.flip-card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:28px;overflow:hidden;box-shadow:0 20px 55px #6336a62b}
+.front{background:white;padding:10px}.front img{width:100%;height:100%;object-fit:contain;background:#faf7ff;border-radius:20px;display:block}
+.back{background:linear-gradient(145deg,#9c6ad4,#c493ed);color:white;transform:rotateY(180deg);display:grid;place-items:center;padding:28px}
+
+.wishes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.wish{min-height:100px;padding:12px 8px;border-radius:20px;background:linear-gradient(145deg,#f8edff,#e6d2fa);display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:.4s;box-shadow:0 8px 20px #6336a615;font-size:.85rem}
+.wish:hover{transform:translateY(-5px) rotate(1deg)}.wish span{display:none}.wish.open{background:linear-gradient(145deg,#b886e9,#9460cf);color:white}.wish.open span{display:block}.wish.open b{display:none}
+
+.firework{position:fixed;width:5px;height:5px;border-radius:50%;background:white;z-index:80;pointer-events:none;box-shadow:0 0 8px #fff,0 0 15px #d7b4ff;animation:firework 1.5s ease-out forwards}
+@keyframes firework{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--fx),var(--fy));opacity:0}}
+
+@media(max-width:500px){
+  .card{padding:23px 16px;border-radius:30px}
+  .photo-wrap{width:94vw;aspect-ratio:16/10}
+  .wishes{grid-template-columns:repeat(2,1fr)}
+  .calendar{padding:14px}.cal-grid{gap:3px}
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+<div class="balloons">
+  <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+  <div class="balloon"></div><div class="balloon"></div>
+</div>
+
+<div class="progress">
+  <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+  <span class="dot"></span><span class="dot"></span>
+</div>
+
+<button class="music" id="musicBtn">♫</button>
+
+<audio id="backsound" loop>
+  <source src="backsound.mp3" type="audio/mpeg">
+</audio>
+
+<section class="screen active" id="screen1">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="card">
+    <div class="small">sebuah surat kecil untuk...</div>
+    <h1>Nawa Aulia Putri</h1>
+    <p class="typewriter"><span id="typingText"></span><span class="cursor"></span></p>
+
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope">
+        <div class="letter">💌<br><b>Untuk Nawa</b><br><small>buka pelan-pelan ya...</small></div>
+        <div class="flap"></div>
+      </div>
+    </div>
+
+    <p>Klik suratnya untuk membuka kejutan ✨</p>
+
+    <div class="secret-star" id="secretStar">⭐</div>
+    <div class="secret-message" id="secretMessage">
+      🤫 Kamu menemukan pesan rahasia!
+      <br><br>
+      Semoga di umur 18 ini Nawa makin bahagia,
+      makin kuat, dan makin banyak cerita indahnya. 💜
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen2">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="card">
+    <div class="small">save the date</div>
+    <h2>Hari yang spesial 💜</h2>
+    <p>Karena hari ini bukan hari Selasa biasa...</p>
+
+    <div class="calendar">
+      <div class="cal-head"><span>♡</span><strong>Oktober 2026</strong><span>♡</span></div>
+      <div class="cal-grid" id="calendar"></div>
+      <div class="date-note">Selasa, 6 Oktober 2026 ✨</div>
+    </div>
+
+    <button class="primary" id="nextCake">Lanjut →</button>
+  </div>
+</section>
+
+<div class="countdown" id="countdown">
+  <div class="count-number" id="countNumber">3</div>
+</div>
+
+<section class="screen" id="screen3">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="card">
+    <div class="small">one more surprise</div>
+    <h2>Ada kado buat kamu 🎁</h2>
+    <p>Kecil bentuknya, tapi semoga hangat rasanya.</p>
+
+    <div class="gift" id="gift">
+      <div class="bow">🎀</div>
+      <div class="gift-lid"></div>
+      <div class="gift-body"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+    </div>
+
+    <div id="giftText">Klik kadonya ✨</div>
+
+    <div class="photo-wrap" id="photoWrap">
+      <div class="flip-card" id="flipCard">
+        <div class="face front">
+          <img src="foto-nawa.jpg" alt="Foto Nawa Aulia Putri">
+        </div>
+        <div class="face back">
+          <p>
+            Selamat ulang tahun ke-18, Nawa Aulia Putri! 💜
+            <br><br>
+            Semoga langkahmu ke depan dipenuhi hal-hal baik,
+            orang-orang baik, dan banyak alasan untuk tersenyum.
+            <br><br>
+            Semoga semua doa yang kamu simpan pelan-pelan
+            menemukan jalannya untuk menjadi nyata.
+            <br><br>
+            Tetap jadi Nawa yang hangat, kuat,
+            dan punya cerita indahnya sendiri. ✨
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p id="photoHint" style="display:none">
+      Klik fotonya untuk membaca pesan di baliknya ↻
+    </p>
+
+    <button class="primary" id="toWishes" style="display:none">
+      18 Wishes 💜
+    </button>
+  </div>
+</section>
+
+<section class="screen" id="screen4">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="card">
+    <div class="small">18 wishes for 18 years</div>
+    <h2>18 Doa Untuk Nawa 💜</h2>
+    <p>Klik satu per satu kartunya untuk membuka harapan.</p>
+    <div class="wishes" id="wishes"></div>
+    <button class="primary" id="finishBtn" style="margin-top:22px">Selesai ✨</button>
+  </div>
+</section>
+
+<section class="screen" id="screen5">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="card">
+    <div style="font-size:3rem">💜✨🎉✨💜</div>
+    <div class="small">a new chapter begins</div>
+    <h1>Happy Birthday,<br>Nawa!</h1>
+    <p>Selamat datang di usia 18 tahun.</p>
+    <p>
+      Semoga umur baru ini membawa lebih banyak kebahagiaan,
+      kesehatan, kesuksesan, pengalaman seru,
+      dan orang-orang baik yang selalu ada di sekitarmu.
+    </p>
+    <p><b>Jangan lupa bahagia, karena kamu pantas mendapatkannya. 💜</b></p>
+
+    <button class="primary" id="whatsappBtn">💬 Kirim Ucapan ke WhatsApp</button>
+    <br>
+    <button class="primary" id="restartBtn" style="margin-top:12px">↻ Ulangi dari Awal</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+const screens=[...document.querySelectorAll(".screen")];
+const dots=[...document.querySelectorAll(".dot")];
+
+function showScreen(index){
+  screens.forEach((screen,i)=>screen.classList.toggle("active",i===index));
+  dots.forEach((dot,i)=>dot.classList.toggle("on",i===index));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+const typingText="Hari ini adalah hari yang spesial. Ada sesuatu yang ingin disampaikan lewat surat kecil ini...";
+let typingIndex=0;
+
+function typeWriter(){
+  if(typingIndex<typingText.length){
+    document.getElementById("typingText").textContent+=typingText.charAt(typingIndex++);
+    setTimeout(typeWriter,45);
+  }
+}
+typeWriter();
+
+function createSparkle(x,y){
+  const sparkle=document.createElement("div");
+  sparkle.className="sparkle";
+  sparkle.style.left=x+"px";
+  sparkle.style.top=y+"px";
+  document.body.appendChild(sparkle);
+  setTimeout(()=>sparkle.remove(),800);
+}
+
+let lastSparkle=0;
+document.addEventListener("pointermove",e=>{
+  const now=Date.now();
+  if(now-lastSparkle<80)return;
+  lastSparkle=now;
+  createSparkle(e.clientX,e.clientY);
+});
+
+document.getElementById("secretStar").addEventListener("click",()=>{
+  document.getElementById("secretMessage").classList.toggle("show");
+});
+
+const audio=document.getElementById("backsound");
+const musicBtn=document.getElementById("musicBtn");
+
+function startMusic(){
+  audio.volume=.55;
+  audio.play().then(()=>{
+    musicBtn.style.display="block";
+    musicBtn.textContent="♫";
+  }).catch(()=>{
+    musicBtn.style.display="block";
+    musicBtn.textContent="🔇";
+  });
+}
+
+musicBtn.addEventListener("click",()=>{
+  if(audio.paused){
+    audio.play();
+    musicBtn.textContent="♫";
+  }else{
+    audio.pause();
+    musicBtn.textContent="🔇";
+  }
+});
+
+let letterOpened=false;
+document.getElementById("envelope").addEventListener("click",()=>{
+  if(letterOpened)return;
+  letterOpened=true;
+  document.getElementById("envelope").classList.add("open");
+  startMusic();
+  setTimeout(()=>showScreen(1),1400);
+});
+
+const calendar=document.getElementById("calendar");
+["Min","Sen","Sel","Rab","Kam","Jum","Sab"].forEach(day=>{
+  const e=document.createElement("div");
+  e.className="week";
+  e.textContent=day;
+  calendar.appendChild(e);
+});
+
+const firstDay=new Date(2026,9,1).getDay();
+for(let i=0;i<firstDay;i++){
+  const e=document.createElement("div");
+  e.className="day";
+  calendar.appendChild(e);
+}
+
+for(let date=1;date<=31;date++){
+  const e=document.createElement("div");
+  e.className="day";
+  e.textContent=date;
+  if(date===6){
+    e.classList.add("mark");
+    e.title="Selasa, 6 Oktober 2026";
+  }
+  calendar.appendChild(e);
+});
+
+const countdown=document.getElementById("countdown");
+const countNumber=document.getElementById("countNumber");
+
+function startCountdown(){
+  countdown.classList.add("show");
+  const numbers=["3","2","1","✨"];
+  let index=0;
+
+  function nextNumber(){
+    countNumber.textContent=numbers[index];
+    countNumber.style.animation="none";
+    void countNumber.offsetWidth;
+    countNumber.style.animation="countPop .9s cubic-bezier(.2,1.5,.4,1)";
+    index++;
+
+    if(index<numbers.length){
+      setTimeout(nextNumber,900);
+    }else{
+      setTimeout(()=>{
+        countdown.classList.remove("show");
+        showScreen(2);
+        confetti();
+      },900);
+    }
+  }
+  nextNumber();
+}
+
+document.getElementById("nextCake").addEventListener("click",startCountdown);
+
+function confetti(){
+  const symbols=["💜","✨","🎉","🎊","💗","⭐"];
+
+  for(let i=0;i<35;i++){
+    const particle=document.createElement("span");
+    particle.style.position="fixed";
+    particle.style.zIndex="300";
+    particle.style.left="50vw";
+    particle.style.top="50vh";
+    particle.style.fontSize=(15+Math.random()*20)+"px";
+    particle.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    particle.style.pointerEvents="none";
+
+    const x=Math.random()*100-50;
+    const y=Math.random()*100-60;
+
+    particle.animate([
+      {transform:"translate(0,0) scale(.5)",opacity:1},
+      {transform:`translate(${x}vw,${y}vh) rotate(360deg) scale(1.2)`,opacity:0}
+    ],{
+      duration:1800+Math.random()*700,
+      easing:"cubic-bezier(.2,.8,.2,1)"
+    });
+
+    document.body.appendChild(particle);
+    setTimeout(()=>particle.remove(),2600);
+  }
+}
+
+const gift=document.getElementById("gift");
+let giftOpened=false;
+
+gift.addEventListener("click",()=>{
+  if(giftOpened)return;
+  giftOpened=true;
+  gift.classList.add("open");
+  confetti();
+
+  setTimeout(()=>{
+    gift.style.display="none";
+    document.getElementById("giftText").style.display="none";
+    document.getElementById("photoWrap").style.display="block";
+    document.getElementById("photoHint").style.display="block";
+    document.getElementById("toWishes").style.display="inline-block";
+  },850);
+});
+
+document.getElementById("flipCard").addEventListener("click",()=>{
+  document.getElementById("flipCard").classList.toggle("flipped");
+});
+
+const wishesData=[
+"Semoga selalu sehat.",
+"Semoga panjang umur.",
+"Semoga makin bahagia.",
+"Semoga semua impian tercapai.",
+"Semoga selalu dikelilingi orang baik.",
+"Semoga rezekinya lancar.",
+"Semoga makin sukses.",
+"Semoga selalu percaya diri.",
+"Semoga kuat menghadapi semua hal.",
+"Semoga banyak pengalaman seru.",
+"Semoga selalu punya alasan untuk tersenyum.",
+"Semoga semua urusannya dipermudah.",
+"Semoga menemukan banyak hal baru.",
+"Semoga selalu disayangi keluarga.",
+"Semoga langkahnya selalu diberi jalan.",
+"Semoga harapan kecil menjadi nyata.",
+"Semoga tahun ini lebih indah.",
+"Semoga Nawa selalu bahagia. 💜"
+];
+
+const wishes=document.getElementById("wishes");
+
+wishesData.forEach((wish,index)=>{
+  const card=document.createElement("div");
+  card.className="wish";
+  card.innerHTML=`<b>Wish ${index+1}<br>✨</b><span>${wish}</span>`;
+  card.addEventListener("click",()=>card.classList.toggle("open"));
+  wishes.appendChild(card);
+});
+
+document.getElementById("toWishes").addEventListener("click",()=>showScreen(3));
+
+function fireworks(){
+  for(let burst=0;burst<8;burst++){
+    setTimeout(()=>{
+      const centerX=10+Math.random()*80;
+      const centerY=15+Math.random()*45;
+
+      for(let i=0;i<28;i++){
+        const particle=document.createElement("div");
+        particle.className="firework";
+        particle.style.left=centerX+"vw";
+        particle.style.top=centerY+"vh";
+
+        const angle=(Math.PI*2*i)/28;
+        const distance=80+Math.random()*100;
+
+        particle.style.setProperty("--fx",Math.cos(angle)*distance+"px");
+        particle.style.setProperty("--fy",Math.sin(angle)*distance+"px");
+
+        document.body.appendChild(particle);
+        setTimeout(()=>particle.remove(),1600);
+      }
+    },burst*500);
+  }
+}
+
+document.getElementById("finishBtn").addEventListener("click",()=>{
+  showScreen(4);
+  fireworks();
+  setTimeout(fireworks,4500);
+  setTimeout(fireworks,9000);
+});
+
+document.getElementById("whatsappBtn").addEventListener("click",()=>{
+  const message=`🎂 Selamat ulang tahun ke-18, Nawa Aulia Putri! 💜
+
+Semoga selalu sehat, bahagia, sukses, dan semua doa serta impian Nawa bisa tercapai.
+
+Semoga usia 18 ini menjadi awal dari banyak cerita indah, pengalaman baru, dan hal-hal baik.
+
+Happy 18th Birthday, Nawa! 🎉💜✨`;
+
+  window.open("https://wa.me/?text="+encodeURIComponent(message),"_blank");
+});
+
+document.getElementById("restartBtn").addEventListener("click",()=>location.reload());
+</script>
+</body>
+</html>
